@@ -22,6 +22,7 @@ terraform apply
 ## Project Design Explanation
 Initially Provision the following resources (Listed as per module in the directory structure)
 
+```
 Module 'vpc': 
         - VPC
         - Internet Gateway
@@ -29,10 +30,10 @@ Module 'vpc':
 Module 'networking-essentials':
         - 3 Pulic Subnets in Three AZs (us-east-1a, us-east-1b, us-east-1c)
         - Custom Route Table for VPC to route traffic to public subnets created above
-        - 1 Security Group (This is a bad sg by all means)
+        - 1 Security Group (This is a bad sg (all_open). For Project its ok. In a production like env i will be putting everything into a private  subnet and locking it)
 
 main :
-    - Route 53 Zone (To be used to add DNS Records for each instance)
+Route 53 Zone (To be used to add DNS Records for each instance)
     - Gather details of latest Cent OS 7 AMI (CentOS 7 x86_64 2014_07_07 EBS*)
     - Provision 3 mongodb instances with an additional volume of 1000GB
     - Allocate 3 Elastic IPs.
@@ -43,8 +44,9 @@ main :
            - yum update and install docker.
            - start docker service.
            - pull mongo docker image.
-           - Run Mongo Container.
+           - Run Mongo Container with shared volume for mongodb logs.
     - On the third node (After above two are provisioned Run setup-replication.sh)
         - setup-replication.sh design
            - Take the public ip addresses of all the nodes and create a config.
            - Initiate a Replica Set
+```
