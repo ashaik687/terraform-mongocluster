@@ -4,7 +4,6 @@ phases:
   install:
     commands:
       - echo Entered the install phase...
-      - apt-get update -y
 artifacts:
     files: 
         - '**/*'
